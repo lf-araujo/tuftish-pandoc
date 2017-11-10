@@ -1,0 +1,101 @@
+\pretitle{\pagenumbering{gobble}\begin{flushright}\huge\scshape}
+\posttitle{ \color{Mahogany}\rule{\linewidth}{8pt}\end{flushright}}
+\preauthor{\vspace{4cm}\begin{flushright}\large\scshape}
+\postauthor{\end{flushright}}
+\predate{\vfill\begin{flushleft}\large\scshape}
+\postdate{\par\end{flushleft}\newpage}
+
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+
+% MEMOIR LAYOUT
+\setlength{\baselineskip}{14pt}
+\setlength{\normalbaselineskip}{14pt}
+
+% GEOMETRY
+\settrims{0pt}{0pt}
+\settypeblocksize{49\baselineskip}{107mm}{*}
+\setlrmargins{24.8mm}{*}{*}
+\setulmargins{27.4mm}{*}{*}
+\setheadfoot{\baselineskip}{\baselineskip}
+\setheaderspaces{*}{2\baselineskip}{*}
+\setmarginnotes{8.2mm}{49.4mm}{\onelineskip}
+\checkandfixthelayout
+
+% TEXT
+% ragged2e provides ragged justification with hyphenation
+\RequirePackage{ragged2e}
+\AtBeginDocument{\RaggedRight}
+\setmpjustification{\RaggedLeft}{\RaggedRight}
+\setlength{\RaggedRightParindent}{1.0pc}
+\setlength{\parindent}{1pc}
+\setlength{\parskip}{0pt}
+
+% LOOSE-TRACK SMALL CAPS
+\newcommand\loosesc[1]{ {\addfontfeature{LetterSpace=8}#1}}
+
+% PAGE STYLE - HEADERS AND (NO) FOOTERS
+\makepagestyle{tufte}
+\makeoddhead{tufte}{}{}{\loosesc{\rightmark}\quad\thepage}
+\makeevenhead{tufte}{\thepage\quad\loosesc{\leftmark}}{}{}
+
+% font settings for page headers
+\makeevenfoot{tufte}{}{}{}
+\makeoddfoot{tufte}{}{}{}
+
+% use small caps in running headers
+\renewcommand*{\memUChead}[1]{\textsc{\MakeTextLowercase{#1}}}
+
+
+% chapters on left, sections on right, without numbers
+\makepsmarks{tufte}{
+\createmark{chapter}{left}{nonumber}{}{}
+\createmark{section}{right}{nonumber}{}{}
+\createplainmark{toc}{both}{\contentsname}
+\createplainmark{lof}{both}{\listfigurename}
+\createplainmark{lot}{both}{\listtablename}
+\createplainmark{bib}{both}{\bibname}
+\createplainmark{index}{both}{\indexname}
+\createplainmark{glossary}{both}{\glossaryname}}
+
+% full-width-headers
+\setlength{\headwidth}{\textwidth}
+\addtolength{\headwidth}{\marginparsep}
+\addtolength{\headwidth}{\marginparwidth}
+\makerunningwidth{tufte}{\headwidth}
+\makeheadposition{tufte}{flushright}{flushleft}{}{}
+
+% text styling of all side footnotes
+\renewcommand{\footnotesize}{\fontsize{8pt}{10pt}\selectfont}
+\renewcommand{\foottextfont}{\footnotesize}
+% styling and placement of mark
+\footmarkstyle{{#1. }}
+\setlength{\footmarkwidth}{0em}
+\setlength{\footmarksep}{-\footmarkwidth}
+% memoir command - do all footnotes in margin
+\footnotesinmargin
+
+% SIDECAPTIONS
+\setsidecaps{\marginparsep}{\marginparwidth}
+\sidecapmargin{outer}
+\setsidecappos{t}
+\renewcommand*{\sidecapstyle}{%
+\captionnamefont{\foottextfont\scshape}
+\ifscapmargleft
+\captionstyle{\RaggedLeft\footnotesize\foottextfont}%
+\else
+\captionstyle{\RaggedRight\footnotesize\foottextfont}%
+\fi}
+
+% FULLWIDTH environment
+% The following code should be used *after* any changes to the margins and
+% page layout are made (e.g., after the geometry package has been loaded).
+\newlength{\fullwidthlen}
+\setlength{\fullwidthlen}{\marginparwidth}
+\addtolength{\fullwidthlen}{\marginparsep}
+\newenvironment{fullwidth}{%
+\begin{adjustwidth}{}{-\fullwidthlen}}{%
+\end{adjustwidth}  }
+\newcommand{\fullwbegin}{\smallskip\begin{fullwidth}}
+\newcommand{\fullwend}{\end{fullwidth}\smallskip}	
+
